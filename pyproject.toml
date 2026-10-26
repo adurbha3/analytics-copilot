@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=65"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["analyticscopilot*"]
+
+[project]
+name = "analytics-copilot"
+version = "0.1.0"
+description = "A conversational analytics (NL-to-SQL) assistant over a dbt-style warehouse, a data-quality detection agent, and automated docs/tests generation from a shared semantic layer"
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.24",
+    "torch>=2.0",
+    "transformers>=4.40",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

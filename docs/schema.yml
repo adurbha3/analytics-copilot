@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: mart_verifications
+    description: "One row per identity-verification attempt, denormalized with the requesting user's organization and signup details so downstream queries never need a join."
+    columns:
+      - name: verification_id
+        description: "Unique identifier for the verification attempt."
+        tests:
+          - not_null
+          - unique
+      - name: user_id
+        description: "The user who attempted verification."
+        tests:
+          - not_null
+      - name: email_domain
+        description: "Domain portion of the user's email address."
+        tests:
+          - not_null
+      - name: organization
+        description: "The organization that requested the verification."
+        tests:
+          - not_null
+      - name: method
+        description: "Verification method used."
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['document_scan', 'selfie_match', 'sms_otp', 'knowledge_based']
+      - name: status
+        description: "Outcome of the verification attempt."
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['verified', 'failed', 'pending']
+      - name: created_at
+        description: "Date the verification attempt was made (ISO 8601)."
+        tests:
+          - not_null
+      - name: signup_date
+        description: "Date the user originally signed up (ISO 8601)."
+        tests:
+          - not_null
